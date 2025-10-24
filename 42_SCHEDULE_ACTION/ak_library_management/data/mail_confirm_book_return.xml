@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="email_book_return_confirmation" model="mail.template">
+        <field name="name">Book Return Confirmation Mail</field>
+        <field name="model_id" ref="ak_library_management.model_book_reservation"/>
+        <field name="email_from">{{'noreply@example.com'}}</field>
+        <field name="email_to">{{object.customer_id.email_formatted or ''}}</field>
+        <field name="subject">Confirmation for your book return</field>
+        <field name="description">Sent automatically to customers when they Return book.
+        </field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Dear <strong t-out="object.customer_id.name or ''">user</strong>,
+                    <br/>
+                    <br/>
+                    Please be advised that your Book
+                    <strong t-out="object.book_id.name or ''">has been returned.</strong>
+                    <br/>
+                    <br/>
+                    Thankyou for choosing us as your reading passion.
+                    Looking forward to your re-visite.
+                    <br/>
+                </p>
+            </div>
+        </field>
+        <field name="lang">{{ object.customer_id.lang }}</field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+</odoo>

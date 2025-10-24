@@ -1,0 +1,71 @@
+<odoo>
+    <!--library action-->
+    <record id="library_library_action" model="ir.actions.act_window">
+        <field name="name">Library</field>
+        <field name="res_model">library.library</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_borrowed_books" model="ir.actions.act_window">
+        <field name="name">Borrowed Books</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('library_id', '=', active_id), ('book_state', '=', 'borrowed')]</field>
+    </record>
+
+    <!--library form view-->
+    <record id="library_library_view_form" model="ir.ui.view">
+        <field name="name">Library Form</field>
+        <field name="model">library.library</field>
+        <field name="arch" type="xml">
+            <form string="Library">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="location"/>
+                        <field name="capacity"/>
+                        <field name="book_count" readonly="1"/>
+                        <field name="capacity_status" readonly="1"/>
+                        <field name="notes"/>
+                    </group>
+                    <div class="oe_button_box" name="button_box" position="inside">
+                        <button type="object"
+                                name="action_get_borrowed_count"
+                                class="oe_stat_button"
+                                icon="fa-book">
+                            <field string="Borrowed Books" name="borrowed_book_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <field name="book_ids"/>
+                    <notebook>
+                        <page string="Books">
+                            <field name="book_ids" widget="one2many_tags">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="author_ids" widget="many2many_tags"/>
+                                    <field name="date_release"/>
+                                    <field name="book_state"/>
+                                    <field name="library_location" readonly="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--library list view-->
+    <record id="library_library_view_list" model="ir.ui.view">
+        <field name="name">Library List</field>
+        <field name="model">library.library</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="location"/>
+                <field name="capacity"/>
+                <field name="book_count"/>
+                <field name="capacity_status"/>
+            </list>
+        </field>
+    </record>
+</odoo>

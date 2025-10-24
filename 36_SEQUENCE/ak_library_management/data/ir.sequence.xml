@@ -1,0 +1,21 @@
+<odoo>
+    <!-- Sequence for Books -->
+    <record id="seq_book_reference" model="ir.sequence">
+        <field name="name">Book Reference</field>
+        <field name="code">book.reference</field>
+        <field name="prefix">BOOK-%(year)s-</field>
+        <field name="padding">4</field>
+        <field name="implementation">no_gap</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- Sequence for Library Members -->
+    <record id="seq_library_member" model="ir.sequence">
+        <field name="name">Library Membership ID</field>
+        <field name="code">library.member</field>
+        <field name="prefix">MEM-%(year)s-%(month)s-</field>
+        <field name="padding">4</field>
+        <field name="implementation">no_gap</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_view_form" model="ir.ui.view">
+        <field name="name">product.template.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                    <field name="book_state" widget="statusbar"/>
+                    <button name="action_mark_borrowed"
+                                    type="object" string="Mark as Borrowed"
+                                    domain="'book_state', '!=', 'available'" />
+
+                    <button name="action_mark_available"
+                                    type="object"
+                                    string="Mark as Available"
+                                    domain="'book_state', '!=', 'borrowed'" />
+
+                    <button name="action_return_book"
+                                    type="object"
+                                    string="Return Book"
+                                    domain="'book_state', '!=', 'returned'" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

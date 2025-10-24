@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_library_book,library_book,model_library_book,,1,1,1,1
+access_library_book_category,library_book_category,model_library_book_category,,1,1,1,1
+access_library_member,library_book_category,model_library_members,,1,1,1,1
+access_library_book_author,library_book_author,model_library_author,,1,1,1,1
+access_library_library,library_library,model_library_library,,1,1,1,1
+access_library_book_tag,library_book_tag,model_library_book_tag,,1,1,1,1
+access_res_users_manager,res.users.manager,base.model_res_users,,1,1,1,1
+access_sale_order_manager,sale.order.manager,model_sale_order,sales_team.group_sale_manager,1,1,1,1

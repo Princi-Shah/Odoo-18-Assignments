@@ -1,0 +1,14 @@
+<odoo>
+    <!--    library main parent menu-->
+    <menuitem name="Library" id="library_base_menu"/>
+    <!--    library parent sub menu 1-->
+    <menuitem name="Library Management" id="library_menu1" parent="library_base_menu" sequence="2"/>
+    <!--    library parent sub menu 2-->
+    <menuitem name="Members" id="library_menu2" parent="library_base_menu" sequence="4"/>
+
+    <!--    library child menus-->
+    <menuitem name="Books" id="library_book_menu" parent="library_menu1" action="library_book_action"/>
+    <menuitem name="Category" id="library_book_category_menu" parent="library_base_menu" action="library_book_category_action"/>
+    <menuitem name="Members" id="library_member_menu" parent="library_menu2" action="library_member_action"/>
+    <menuitem name="Author" id="library_author_menu" parent="library_base_menu" action="library_author_action"/>
+</odoo>

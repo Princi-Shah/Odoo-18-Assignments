@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit_manager" model="ir.ui.view">
+        <field name="name">sale.order.form.manager.approval</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//header" position="inside">
+                <field name="approval_flag" invisible="1"/>
+                <field name="approval_done" invisible="1"/>
+                <field name="is_sales_manager" invisible="1"/>
+
+                <button name="action_approve"
+                        string="Approve"
+                        type="object"
+                        groups="sales_team.group_sale_manager"
+                        invisible="not is_sales_manager or approval_flag"/>
+
+                <button name="action_reject"
+                        string="Reject"
+                        type="object"
+                        groups="sales_team.group_sale_manager"
+                        invisible="not is_sales_manager or approval_flag"/>
+            </xpath>
+
+            <xpath expr="//header/button[@name='action_confirm'][1]"
+                   position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//header/button[@name='action_confirm'][2]"
+                   position="attributes">
+                <attribute name="invisible">approval_done</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

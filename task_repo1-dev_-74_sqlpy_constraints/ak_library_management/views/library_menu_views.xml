@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem name="Library Management" id="library_base_menu"/>
+
+    <menuitem name="Library" id="library_menu1" parent="library_base_menu" sequence="2"/>
+
+    <menuitem name="Libraries"
+              id="library_library_menu"
+              parent="library_menu1"
+              action="library_library_action"/>
+
+    <menuitem id="menu_library_products"
+              name="Library Products"
+              parent="library_menu1"
+              action="product.product_template_action"/>
+</odoo>

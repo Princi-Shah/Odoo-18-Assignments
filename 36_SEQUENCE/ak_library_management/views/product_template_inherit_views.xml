@@ -1,0 +1,38 @@
+<odoo>
+    <record id="view_product_template_library_book_form" model="ir.ui.view">
+        <field name="name">Product Template Library Book Form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='general_information']" position="after">
+                <page string="Book Details">
+                    <group>
+                        <field name="is_library_book"/>
+                        <field name="author"/>
+                        <field name="publisher"/>
+                        <field name="edition"/>
+                        <field name="published_date"/>
+                        <field name="pages"/>
+                        <field name="isbn_number"/>
+                    </group>
+                </page>
+            </xpath>
+
+            <xpath expr="//form//header" position="inside">
+                <field name="status" widget="statusbar"
+                       invisible = "[('is_library_book','=',False)]"/>
+
+                <button name="action_available" type="object" string="Available"
+                        invisible = "[('is_library_book','=',False),
+                        ('status','=','available')]"/>
+                <button name="action_borrowed" type="object" string="Borrowed"
+                        invisible = "[('is_library_book','=',False),
+                        ('status','=','borrowed')]"/>
+                <button name="action_reserved" type="object" string="Reserved"
+                        invisible = "[('is_library_book','=',False),
+                        ('status','=','reserved')]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

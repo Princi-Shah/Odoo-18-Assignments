@@ -1,0 +1,17 @@
+<odoo>
+    <!-- Record A with noupdate=1 -->
+    <data noupdate="1">
+        <record id="student_a" model="student.student">
+            <field name="name">Student A</field>
+            <field name="description">Original description for Student A updated.</field>
+        </record>
+    </data>
+
+    <!-- Record B with noupdate=0 -->
+    <data noupdate="0">
+        <record id="student_b" model="student.student">
+            <field name="name">Student B</field>
+            <field name="description">Original description for Student B updated</field>
+        </record>
+    </data>
+</odoo>

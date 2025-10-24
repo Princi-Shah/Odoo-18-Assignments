@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_template_library_form_view" model="ir.ui.view">
+        <field name="name">Product Template Library Book Form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Book Details">
+                    <group>
+                        <field name="is_library_book"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">Product sale</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header" position="inside">
+                <field name="status" widget="statusbar"/>
+                    <button name="action_mark_borrowed"
+                                    type="object" string="Mark as Borrowed"
+                                    domain="'status', '!=', 'available'" />
+
+                    <button name="action_mark_available"
+                                    type="object"
+                                    string="Mark as Available"
+                                    domain="'status', '!=', 'borrowed'" />
+
+                    <button name="action_return_book"
+                                    type="object"
+                                    string="Return Book"
+                                    domain="'status', '!=', 'returned'" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

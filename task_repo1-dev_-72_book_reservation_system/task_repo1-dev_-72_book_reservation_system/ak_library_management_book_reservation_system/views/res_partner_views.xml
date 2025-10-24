@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_view_form" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_button_box']" position="inside">
+                <button type="object"
+                        name="action_view_reservations"
+                        class="oe_stat_button"
+                        icon="fa-book">
+                    <field string="Reservations" name="reservation_count"
+                           widget="statinfo"/>
+                </button>
+            </xpath>
+            <xpath expr="//group/group/field[@name='website']" position="after">
+                <field string="Can Reserve Book" name="can_reserve_books"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

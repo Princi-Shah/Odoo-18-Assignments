@@ -1,0 +1,3 @@
+<odoo>
+    <menuitem name="Student" id="student_menu" action="student_action"/>
+</odoo>

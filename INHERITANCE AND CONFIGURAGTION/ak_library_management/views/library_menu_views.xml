@@ -1,0 +1,37 @@
+<odoo>
+    <!--library main parent menu-->
+    <menuitem name="Library Management" id="library_base_menu"/>
+    <!--library parent sub menu 1-->
+    <menuitem name="Library" id="library_menu1" parent="library_base_menu" sequence="2"/>
+    <!--library parent sub menu 2-->
+    <menuitem name="Members" id="library_menu2" parent="library_base_menu" sequence="4"/>
+    <!--library parent sub menu 3-->
+    <menuitem name="Configuration" id="library_menu3" parent="library_base_menu" sequence="6"/>
+
+    <!--library child menus  -->
+    <!--library menu -->
+    <menuitem name="Libraries"
+              id="library_library_menu"
+              parent="library_menu1"
+              action="library_library_action"/>
+    <!--library books menu -->
+    <menuitem name="Books"
+              id="library_book_menu"
+              parent="library_menu1"
+              action="library_book_action"/>
+    <!--library members menu -->
+    <menuitem name="Members"
+              id="library_member_menu"
+              parent="library_menu2"
+              action="library_member_action"/>
+    <!--library authors menu -->
+    <menuitem name="Authors"
+              id="library_author_menu"
+              parent="library_base_menu"
+              action="library_author_action"/>
+    <!--library product menu-->
+    <menuitem id="menu_library_products"
+              name="Library Products (Books)"
+              parent="library_menu1"
+              action="product.product_template_action"/>
+</odoo>

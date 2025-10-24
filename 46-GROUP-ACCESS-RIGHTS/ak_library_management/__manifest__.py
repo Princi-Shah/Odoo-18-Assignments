@@ -1,0 +1,25 @@
+# - * - coding: utf - 8 -*-
+{
+    'name': 'Book Reservation System with Access rights',
+    'version': '18.0.1.0.0',
+    'author': 'Aktiv Software',
+    'category': 'Library',
+    'website': 'https://www.aktivsoftware.com',
+    'description': """Book Reservation System extended with group access rights""",
+    'depends': ['base', 'sale_management', 'stock', 'product', 'contacts','hr'],
+    'data': [
+        'security/library_security.xml',
+        'security/library_security_rules.xml',
+        'security/ir.model.access.csv',
+        'views/book_reservation_views.xml',
+        'views/res_partner_views.xml',
+        'views/product_template_views.xml',
+        'views/stock_warehouse_views.xml',
+        'views/res_config_settings_views.xml',
+        'wizards/reserve_book_wizard.xml',
+    ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+    'license': 'LGPL-3',
+}

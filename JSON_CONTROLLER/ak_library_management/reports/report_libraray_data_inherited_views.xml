@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_library_data_internal_o">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="overflow-auto">
+                    <div class="row">
+                        <div class="col-6">
+                            <h4>
+                                <span t-out="o.name"/>
+                                #
+                                <span t-out="o.id"/>
+                            </h4>
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-6" style="font-weight: bold;">
+                                    <p>Library Name:</p>
+                                    <p>Date:</p>
+                                    <p>Location:</p>
+                                    <p>Total Borrowed Books Count:</p>
+                                </div>
+                                <div class="col-6">
+                                    <p t-out="o.name"/>
+                                    <p t-out="o.date_today" t-options="{'widget': 'date', 'format': 'dd/MMM/YYYY'}"/>
+                                    <p t-out="o.location"/>
+                                    <p t-out="o.borrowed_book_count"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/><br/><br/>
+                    <div>
+                    </div>
+                    <div>
+                        <table class="table table-borderless table-striped">
+                            <thead class="border-bottom pt-1">
+                                <tr>
+                                    <th>
+                                        <strong>Book</strong>
+                                    </th>
+                                    <th>
+                                        <strong>Price</strong>
+                                    </th>
+                                    <th>
+                                        <strong>Publication Date</strong>
+                                    </th>
+                                    <th>
+                                        <strong>Author</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.book_ids" t-as="book">
+                                    <tr class="border-bottom pt-1">
+                                        <td>
+                                            <strong>
+                                                <t t-esc="book.isbn_number or 'N/A'"/>
+                                                [ProductISBN]
+                                            </strong>
+                                            <br/>
+                                            <span>
+                                                <t t-esc="book.name or ''"/>
+                                            </span>
+                                            <br/>
+                                            <small>
+                                                <strong>On Hand:</strong>
+                                                [<t t-esc="int(book.qty_available or 0)"/>]
+                                            </small>
+                                        </td>
+                                        <td>
+                                            <t t-esc="book.list_price"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="book.date_release"
+                                               t-options="{'widget': 'date', 'format':
+                                           'dd/MMM/YYYY'}"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="book.author_ids.name or 'Unknown'"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+                    <div>
+                        <strong>Note:</strong>
+                        <t t-esc="o.notes"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!--template object calling-->
+    <template id="report_data_internal">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="ak_library_management.report_library_data_internal_o"/>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,30 @@
+# - * - coding: utf - 8 -*-
+{
+    'name': 'Library Management System',
+    'version': '18.0.1.0.0',
+    'author': 'Aktiv Software',
+    'category': 'Library',
+    'website': 'https://www.aktivsoftware.com',
+    'description': """Library Management System extended with group access rights and 
+    Schedule actions.""",
+    'depends': ['base', 'mail', 'sale_management', 'stock', 'product', 'contacts','hr'],
+    'data': [
+        'security/library_security.xml',
+        'security/library_security_rules.xml',
+        'security/ir.model.access.csv',
+        'data/ir_cron_data.xml',
+        'data/mail_template_data.xml',
+        'data/mail_confirm_book_return.xml',
+        'data/ir_action_data.xml',
+        'views/book_reservation_views.xml',
+        'views/res_partner_views.xml',
+        'views/product_template_views.xml',
+        'views/stock_warehouse_views.xml',
+        'views/res_config_settings_views.xml',
+        'wizards/reserve_book_wizard.xml',
+    ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+    'license': 'LGPL-3',
+}

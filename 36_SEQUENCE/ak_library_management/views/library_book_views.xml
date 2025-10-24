@@ -1,0 +1,79 @@
+<odoo>
+    <!-- Book List View -->
+    <record id="library_book_view_list" model="ir.ui.view">
+        <field name="name">library.book.list</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="book_reference"/>
+                <field name="name"/>
+                <field name="author"/>
+                <field name="isbn_number"/>
+                <field name="library_location"/>
+                <field name="book_state"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Book Form View -->
+    <record id="library_book_view_form" model="ir.ui.view">
+        <field name="name">library.book.form</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <form string="Book">
+                <header>
+                    <field name="book_state" widget="statusbar"/>
+                    <button name="action_mark_borrowed"
+                            type="object"
+                            string="Mark as Borrowed"
+                            invisible = "[('book_state','=','borrowed')]"/>
+                    <button name="action_mark_available"
+                            type="object"
+                            string="Mark as Available"
+                            invisible = "[('book_state','=','available')]"/>
+                    <button name="action_return_book"
+                            type="object"
+                            string="Return Book"
+                            invisible = "[('book_state','=','available')]"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="book_reference" readonly="1"/>
+                            <field name="name"/>
+                            <field name="author"/>
+                            <field name="date_release"/>
+                            <field name="library_id"/>
+                        </group>
+                        <group>
+                            <field name="library_location" readonly="1"/>
+                            <field name="isbn_number"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Book Action -->
+    <record id="library_book_action" model="ir.actions.act_window">
+        <field name="name">Books</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Book Search View -->
+    <record id="library_book_view_search" model="ir.ui.view">
+        <field name="name">library.book.search</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="book_reference"/>
+                <field name="name"/>
+                <field name="author"/>
+                <filter string="No Authors" name="without_author"
+                        domain="[('author','=',False)]"/>
+            </search>
+        </field>
+    </record>
+</odoo>
