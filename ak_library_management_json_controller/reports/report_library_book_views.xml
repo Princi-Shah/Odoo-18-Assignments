@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <template id="report_external_layout_standard_library">
+         <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <!--header-->
+         <div t-attf-class="header o_company_#{company.id}_layout border-bottom pt-2">
+             <div class="row">
+                 <div class="col-6">
+                     <img t-if="company.logo" class="o_company_logo_small" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                    <div t-if="company.report_header" t-field="company.report_header" class="o_company_tagline mw-50 fw-bold">Company tagline</div>
+                 </div>
+                 <div class="col-6">
+                    <ul class="list-unstyled" name="company_address_list">
+                        <li t-if="company.is_company_details_empty">
+                            <span t-field="company.partner_id"
+                                  t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'>
+                            <div class="bg-light border-1 rounded h-100 flex-column align-items-center justify-content-center p-4 w-100 opacity-75 text-muted text-center">
+                                <strong>Company address block</strong>
+                                <div>Contains the company address.</div>
+                            </div>
+                        </span>
+                        </li>
+                        <li>
+                                <p t-if="company.company_details">
+                                    <span t-out="company.company_details"/>
+                                </p>
+                                <p t-if="company.phone"><span t-out="company.phone"/></p>
+                                <p t-if="company.email"><span t-out="company.email"/></p>
+                        </li>
+                        <li t-if="not forced_vat"/>
+                        <li t-else="">
+                            <t t-esc="company.country_id.vat_label or 'Tax ID'">Tax ID</t>:
+                            <span t-esc="forced_vat">US12345671</span>
+                        </li>
+                    </ul>
+                 </div>
+             </div>
+         </div>
+
+         <!--body-->
+         <div t-attf-class="article o_report_layout_bold o_table_bold o_company_#{company.id}_layout o_snail_mail {{'o_report_layout_background' if company.layout_background != 'Blank' else ''}}"
+             t-attf-style="{{ 'background-image: url(%s);' % layout_background_url if layout_background_url else '' }}"
+             t-att-data-oe-model="o and o._name"
+             t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-call="web.address_layout"/>
+            <h2 t-out="layout_document_title"/>
+            <t t-out="0"/>
+         </div>
+
+         <!--footer-->
+         <div t-attf-class="footer o_company_#{company.id}_layout {{report_type != 'pdf' and 'mt-auto'}}">
+            <div class="o_footer_content d-flex border-top pt-2">
+                <div class="flex-grow-1 text-start me-2" t-field="company.report_footer"/>
+                <div class="text-end text-muted col-8 d-flex">
+                    <div>
+                        <span t-out="company.phone"/>
+                        <span t-out="company.email"/>
+                        <span t-out="company.website"/>
+                    </div>
+                    <div t-if="report_type == 'pdf'" class="text-nowrap col-8" style="text-align: right;">Page <span class="page"/> / <span class="topage"/></div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!--details-->
+    <template id="report_library_book_data_template">
+        <t t-call="ak_library_management.report_external_layout_standard_library">
+            <br/><br/>
+            <div class="overflow-auto">
+                <div class="row">
+                    <div class="col-6">
+                        <h4>
+                            <span t-out="o.name"/> # <span t-out="o.id"/>
+                        </h4>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6" style="font-weight: bold;">
+                                <p>Library Name: </p>
+                                <p>Date: </p>
+                                <p>Location: </p>
+                                <p>Total Borrowed Books Count: </p>
+                            </div>
+                            <div class="col-6">
+                                <p t-out="o.name"/>
+                                <p t-out="o.date_today" t-options="{'widget': 'date', 'format': 'dd/MMM/YYYY'}"/>
+                                <p t-out="o.location"/>
+                                <p t-out="o.borrowed_book_count"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/><br/><br/>
+                <div>
+                </div>
+                <div>
+                    <table class="table table-borderless table-striped">
+                        <thead class="border-bottom pt-1">
+                           <tr>
+                               <th><strong>Book</strong></th>
+                               <th><strong>Price</strong></th>
+                               <th><strong>Publication Date</strong></th>
+                               <th><strong>Author</strong></th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                            <t t-foreach="o.book_ids" t-as="book">
+                                <tr class="border-bottom pt-1">
+                                    <td><strong><t t-esc="book.isbn_number or 'N/A'"/>
+                                            [ProductISBN]
+                                        </strong><br/>
+                                        <span><t t-esc="book.name or ''"/></span><br/>
+                                        <small><strong>On Hand:</strong>
+                                            [<t t-esc="int(book.qty_available or 0)"/>]
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <t t-esc="book.list_price"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="book.date_release"
+                                           t-options="{'widget': 'date', 'format':
+                                           'dd/MMM/YYYY'}"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="book.author_ids.name or 'Unknown'"/>
+                                    </td>
+                                </tr>
+                            </t>
+                       </tbody>
+                    </table>
+                </div>
+
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+                <div><strong>Note: </strong>
+                    <t t-esc="o.notes"/>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!--template object calling-->
+    <template id="report_library_data">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="ak_library_management.report_library_book_data_template"/>
+            </t>
+        </t>
+    </template>
+</odoo>
